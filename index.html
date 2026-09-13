@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eletric Blue Jogos | Metodologia Ativa Através de Jogos Analógicos</title>
+    <meta name="description" content="Jogos de tabuleiro print-and-play para educação, aprendizado ativo e desenvolvimento psicomotor. Tire seus alunos das telas com metodologia inovadora.">
+    <meta name="keywords" content="jogos analógicos, metodologia ativa, educação, print-and-play, aprendizado">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0052a3;
+            --primary-light: #0066cc;
+            --accent: #f9a825;
+            --accent-dark: #e89a1f;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555555;
+            --text-light: #999999;
+            --bg-white: #ffffff;
+            --bg-light: #f8f9fa;
+            --bg-cream: #faf7f2;
+            --blue-dark: #003d7a;
+            --border: #e0e0e0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-primary);
+            background-color: var(--bg-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* === NAVIGATION === */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 34px;
+            height: 34px;
+            object-fit: contain;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* === HERO === */
+        .hero {
+            margin-top: 60px;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #f0f4f9 0%, #faf7f2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(249, 168, 37, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 82, 163, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .rotating-word {
+            display: inline-block;
+            min-width: 140px;
+            animation: rotate 8s infinite;
+        }
+
+        @keyframes rotate {
+            0% { opacity: 1; transform: translateY(0); }
+            16% { opacity: 1; transform: translateY(0); }
+            20% { opacity: 0; transform: translateY(-20px); }
+            21% { opacity: 0; transform: translateY(20px); }
+            25% { opacity: 1; transform: translateY(0); }
+            
+            25% { opacity: 1; transform: translateY(0); }
+            41% { opacity: 1; transform: translateY(0); }
+            45% { opacity: 0; transform: translateY(-20px); }
+            46% { opacity: 0; transform: translateY(20px); }
+            50% { opacity: 1; transform: translateY(0); }
+            
+            50% { opacity: 1; transform: translateY(0); }
+            66% { opacity: 1; transform: translateY(0); }
+            70% { opacity: 0; transform: translateY(-20px); }
+            71% { opacity: 0; transform: translateY(20px); }
+            75% { opacity: 1; transform: translateY(0); }
+            
+            75% { opacity: 1; transform: translateY(0); }
+            91% { opacity: 1; transform: translateY(0); }
+            95% { opacity: 0; transform: translateY(-20px); }
+            96% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            filter: brightness(1.2);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #0066cc 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 82, 163, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 82, 163, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .hero-illustration {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(0, 82, 163, 0.05) 0%, rgba(249, 168, 37, 0.05) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            border: 2px solid rgba(0, 82, 163, 0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 1rem;
+                margin-top: 50px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-illustration {
+                height: 300px;
+            }
+        }
+
+        /* === SECTION STYLES === */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-title span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* === MISSION SECTION === */
+        .mission {
+            background: linear-gradient(135deg, #f8f9fa 0%, #faf7f2 100%);
+            position: relative;
+        }
+
+        .mission::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f9a825' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            pointer-events: none;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mission-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 2px solid rgba(0, 82, 163, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .mission-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(0, 82, 163, 0.12);
+            transform: translateY(-8px);
+        }
+
+        .mission-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .mission-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .mission-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .mission-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        /* === GAMES SECTION === */
+        .games {
+            background: linear-gradient(135deg, rgba(0, 82, 163, 0.02) 0%, rgba(249, 168, 37, 0.02) 100%);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            border: 1px solid rgba(0, 82, 163, 0.1);
+        }
+
+        .game-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(0, 82, 163, 0.15);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, var(--primary) 0%, #0066cc 50%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-image::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .game-content {
+            padding: 2rem;
+        }
+
+        .game-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .game-meta {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .game-meta span {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(0, 82, 163, 0.08) 0%, rgba(249, 168, 37, 0.08) 100%);
+            padding: 0.4rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .game-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .game-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .game-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .game-link:hover::after {
+            transform: translateX(4px);
+        }
+
+        /* === PEDAGOGY SECTION === */
+        .pedagogy {
+            background: white;
+        }
+
+        .pedagogy-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .pedagogy-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .pedagogy-text h2 span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pedagogy-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(249, 168, 37, 0.1) 0%, rgba(249, 168, 37, 0.05) 100%);
+            border-left: 5px solid var(--accent);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.9;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: var(--text-secondary);
+        }
+
+        .highlight-author {
+            margin-top: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-style: normal;
+            font-size: 0.9rem;
+        }
+
+        .pedagogy-image {
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--primary) 50%, var(--accent) 100%);
+            border-radius: 16px;
+            height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+            box-shadow: 0 20px 50px rgba(0, 82, 163, 0.2);
+        }
+
+        @media (max-width: 968px) {
+            .pedagogy-content {
+                grid-template-columns: 1fr;
+            }
+
+            .pedagogy-image {
+                height: 350px;
+            }
+        }
+
+        /* === PRINT & PLAY SECTION === */
+        .pnp {
+            background: linear-gradient(135deg, #f0f4f9 0%, #faf7f2 100%);
+            position: relative;
+        }
+
+        .pnp::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 82, 163, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .pnp-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pnp-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .pnp-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        .pnp-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .pnp-features li {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 1.2rem;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .pnp-features li::before {
+            content: '✓';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+
+        .pnp-image {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 16px;
+            height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+            box-shadow: 0 20px 50px rgba(249, 168, 37, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pnp-image::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 2px, transparent 2px);
+            background-size: 40px 40px;
+            animation: slide 30s linear infinite;
+        }
+
+        @media (max-width: 968px) {
+            .pnp-content {
+                grid-template-columns: 1fr;
+            }
+
+            .pnp-image {
+                height: 350px;
+            }
+        }
+
+        /* === DELIVERY OPTIONS === */
+        .delivery {
+            background: white;
+        }
+
+        .delivery-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 800;
+        }
+
+        .delivery-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .delivery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .delivery-card {
+            background: linear-gradient(135deg, white 0%, #faf7f2 100%);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .delivery-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(249, 168, 37, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .delivery-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .delivery-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .delivery-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* === CTA SECTION === */
+        .cta-final {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--blue-dark) 50%, var(--accent) 100%);
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-final::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            pointer-events: none;
+        }
+
+        .cta-final::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -50px;
+            left: -50px;
+            pointer-events: none;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-final h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .cta-final p {
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+
+        .btn-light {
+            background: white;
+            color: var(--primary);
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .btn-light:hover {
+            background: #f0f4f9;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* === FOOTER === */
+        footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent) 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-brand-icon {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo-nav">
+                <img src="assets/icon.png" alt="Logo Eletric Blue" class="logo-icon">
+                <span>Eletric Blue</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#missao">Missão</a></li>
+                <li><a href="#jogos">Jogos</a></li>
+                <li><a href="#pedagogia">Pedagogia</a></li>
+                <li><a href="#pnp">Print & Play</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div>
+                    <h1>Tire suas <span class="rotating-word">aulas</span> das <span>telas</span></h1>
+                    <p class="hero-subtitle">
+                        Transforme o aprendizado em experiências táteis, colaborativas e memoráveis. 
+                        Metodologia ativa através de jogos analógicos que desenvolvem psicomotricidade, 
+                        pensamento crítico e engajamento real.
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="document.getElementById('jogos').scrollIntoView()">
+                            Conheça nossos Jogos
+                        </button>
+                        <button class="btn btn-secondary" onclick="document.getElementById('pnp').scrollIntoView()">
+                            Saiba mais sobre Print & Play
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-illustration">🎲</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission -->
+    <section id="missao" class="mission">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Por que Jogos <span>Analógicos?</span></h2>
+                <p class="section-subtitle">A pedagogia ativa vai além de teorias. Ela demanda ação, movimento e pensamento real.</p>
+            </div>
+
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-icon">👐</div>
+                    <h3>Desenvolvimento Psicomotor</h3>
+                    <p>Trabalho manual com cartas, peças e tabuleiros estimula coordenação motora fina, tato e propriocepção. Aprender recortando é aprender com o corpo todo.</p>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">🤝</div>
+                    <h3>Colaboração Real</h3>
+                    <p>Sem telas entre os jogadores. Comunicação face-a-face, negociação, empatia e trabalho em equipe acontecem naturalmente através da dinâmica.</p>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">🧠</div>
+                    <h3>Aprendizado Significativo</h3>
+                    <p>Temas complexos são absorvidos enquanto resolvem desafios. O jogo contextualiza, torna memorável e transforma informação em conhecimento.</p>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">♻️</div>
+                    <h3>Acessibilidade Total</h3>
+                    <p>Projetos em PDF prontos para impressão. Escolas em qualquer contexto podem usar. Sem custos altos de licenciamento ou intermediários.</p>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">🔥</div>
+                    <h3>Engajamento Garantido</h3>
+                    <p>Sair da tela motiva. O jogo é inerentemente motivador—os jovens querem jogar, ganhar e melhorar. Sem tédio, sem dispersão.</p>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">🌍</div>
+                    <h3>Responsabilidade Social</h3>
+                    <p>Cada jogo traz temas relevantes: saúde pública, lógica computacional, meio ambiente. Educação e impacto social andam juntas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games -->
+    <section id="jogos" class="games">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Nossos <span>Jogos</span></h2>
+                <p class="section-subtitle">Projetos validados em sala de aula, já publicados e em uso por educadores</p>
+            </div>
+
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-image">🦟</div>
+                    <div class="game-content">
+                        <h3>Dengueside Survival</h3>
+                        <div class="game-meta">
+                            <span>👥 1-6 jogadores</span>
+                            <span>⏱️ 60 min</span>
+                            <span>📚 8+</span>
+                        </div>
+                        <p>
+                            Cooperativo. Trabalhem em equipe para conter o Aedes Aegypti. Exploração, equipamentos e estratégia com temas de saúde pública e meio ambiente. Já testado em escolas com sucesso.
+                        </p>
+                        <a href="https://ludopedia.com.br/jogo/dengueside-survival" class="game-link" target="_blank">Ver em Ludopedia</a>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <div class="game-image">⚡</div>
+                    <div class="game-content">
+                        <h3>Dengue Blitz</h3>
+                        <div class="game-meta">
+                            <span>👥 2-4 jogadores</span>
+                            <span>⏱️ 15-20 min</span>
+                            <span>📚 6+</span>
+                        </div>
+                        <p>
+                            Versão rápida e intensa. Ação contínua, tomada de decisão sob pressão. Educação sobre dengue em formato dinâmico, perfeito para início de aula ou atividades curtas.
+                        </p>
+                        <a href="https://ludopedia.com.br/jogo/dengue-blitz" class="game-link" target="_blank">Ver em Ludopedia</a>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <div class="game-image">🔐</div>
+                    <div class="game-content">
+                        <h3>Blind Code</h3>
+                        <div class="game-meta">
+                            <span>👥 2-6 jogadores</span>
+                            <span>⏱️ 20-30 min</span>
+                            <span>📚 8+</span>
+                        </div>
+                        <p>
+                            Desafio de lógica e comunicação. Sem ver o código, companheiros guiam você. Ensina pensamento algorítmico e resolução de problemas de forma visceral e lúdica.
+                        </p>
+                        <a href="https://ludopedia.com.br/jogo/blind-code" class="game-link" target="_blank">Ver em Ludopedia</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pedagogy -->
+    <section id="pedagogia" class="pedagogy">
+        <div class="section-container">
+            <div class="pedagogy-content">
+                <div class="pedagogy-text">
+                    <h2>Educação <span>Ativa</span></h2>
+                    <p>
+                        Metodologia ativa não é apenas teoria pedagógica. É colocar o aluno no centro, fazendo, construindo, experimentando com as próprias mãos.
+                    </p>
+                    <p>
+                        Quando um grupo recebe cartas, tabuleiro e dados, não apenas aprende regras—recorta, organiza, explica um ao outro. Cada ação manual reforça o aprendizado exponencialmente.
+                    </p>
+
+                    <div class="highlight-box">
+                        <p>
+                            "Reproduzi o jogo em duas cópias. Dividi por partes e distribuí para grupos de 4 alunos. 
+                            Cada grupo ficou responsável por recortar cada elemento e explicar o significado de cada carta/peça. 
+                            Depois praticaram o jogo juntos."
+                        </p>
+                        <div class="highlight-author">— Lafayette Pereira Candido, professor colaborador</div>
+                    </div>
+
+                    <p>
+                        Enquanto constroem o jogo, alunos internalizam conceitos. Não é só aprender sobre dengue—é entender 
+                        biologia, epidemiologia, prevenção através da prática manual e mental simultânea.
+                    </p>
+                </div>
+                <div class="pedagogy-image">📚</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Print & Play -->
+    <section id="pnp" class="pnp">
+        <div class="section-container">
+            <div class="pnp-content">
+                <div class="pnp-text">
+                    <h2>Print & <span>Play</span></h2>
+                    <p>
+                        Não acreditamos em soluções one-size-fits-all. Acreditamos que cada educador deve ter acesso a ferramentas 
+                        pedagógicas de qualidade, independente do orçamento da instituição.
+                    </p>
+
+                    <ul class="pnp-features">
+                        <li>Arquivos PDF prontos para download</li>
+                        <li>Imprima na sua escola ou em casa</li>
+                        <li>Recorte em sala (atividade pedagógica)</li>
+                        <li>Baixo custo de produção</li>
+                        <li>Totalmente customizável</li>
+                        <li>Suporte pedagógico incluído</li>
+                    </ul>
+
+                    <p style="font-weight: 600; margin-top: 2rem;">
+                        <strong>Comece grátis:</strong> Dengueside Survival está disponível gratuitamente. 
+                        Experimente, valide em sua sala e descubra o potencial.
+                    </p>
+                </div>
+                <div class="pnp-image">🖨️</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery Options -->
+    <section class="delivery">
+        <div class="section-container">
+            <h2 class="delivery-title">Opções de <span>Entrega</span></h2>
+            <p class="delivery-subtitle">Escolha o modelo que melhor se encaixa no seu projeto</p>
+
+            <div class="delivery-grid">
+                <div class="delivery-card">
+                    <div class="delivery-icon">📄</div>
+                    <h3>PDF para Impressão</h3>
+                    <p>Download imediato. Imprima no seu orçamento, quando precisar. Arquivos editáveis para customização local.</p>
+                </div>
+                <div class="delivery-card">
+                    <div class="delivery-icon">📦</div>
+                    <h3>Kits Prontos</h3>
+                    <p>Receba os jogos já impressos, cortados e plastificados. Pronto para usar em sala. Garantia de qualidade e durabilidade.</p>
+                </div>
+                <div class="delivery-card">
+                    <div class="delivery-icon">🎓</div>
+                    <h3>Licença Educacional</h3>
+                    <p>Acesso ilimitado à biblioteca completa para sua escola. Direito de imprimir para todos os alunos. Atualizações contínuas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="cta-final">
+        <div class="cta-content">
+            <h2>Pronto para Transformar sua Sala?</h2>
+            <p>Comece com Dengueside Survival gratuitamente. Experimente a metodologia, valide os resultados e integre à sua prática.</p>
+            <a href="https://ludopedia.com.br/jogo/dengueside-survival" class="btn btn-light" target="_blank">
+                Download Gratuito →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <img src="assets/icon.png" alt="Logo Eletric Blue" class="footer-brand-icon">
+                        <span>Eletric Blue Jogos</span>
+                    </div>
+                    <p>Transformando educação através de jogos analógicos. Metodologia ativa, acessibilidade e impacto social.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="#missao">Missão</a></li>
+                        <li><a href="#jogos">Nossos Jogos</a></li>
+                        <li><a href="#pedagogia">Abordagem Pedagógica</a></li>
+                        <li><a href="#pnp">Print & Play</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="https://ludopedia.com.br" target="_blank">Ludopedia</a></li>
+                        <li><a href="https://ludopedia.com.br/jogo/dengueside-survival" target="_blank">Dengueside Survival</a></li>
+                        <li><a href="https://ludopedia.com.br/jogo/dengue-blitz" target="_blank">Dengue Blitz</a></li>
+                        <li><a href="https://ludopedia.com.br/jogo/blind-code" target="_blank">Blind Code</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Eletric Blue Jogos. Todos os direitos reservados. Desenvolvido com ❤️ para educadores que transformam vidas.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Palavras que rotacionam - com coerência gramatical em português
+        const words = [
+            'aulas',           // Tire suas aulas das telas
+            'mentes',          // Tire suas mentes das telas
+            'vidas',           // Tire suas vidas das telas
+            'crianças',        // Tire suas crianças das telas
+            'habilidades',     // Tire suas habilidades das telas
+            'potencial',       // Tire seu potencial das telas
+            'criatividade',    // Tire sua criatividade das telas
+            'alunos'           // Tire seus alunos das telas
+        ];
+
+        const rotatingElement = document.querySelector('.rotating-word');
+        let currentIndex = 0;
+
+        // Função para determinar o artigo correto baseado na palavra
+        function getArticle(word) {
+            const femininePlural = ['aulas', 'mentes', 'vidas', 'crianças', 'habilidades', 'criatividade'];
+            const masculine = ['potencial'];
+            const masculinePlural = ['alunos'];
+
+            if (femininePlural.includes(word)) return 'suas';
+            if (masculine.includes(word)) return 'seu';
+            if (masculinePlural.includes(word)) return 'seus';
+            return 'suas';
+        }
+
+        // Função para mudar a palavra
+        function changeWord() {
+            currentIndex = (currentIndex + 1) % words.length;
+            const newWord = words[currentIndex];
+            const article = getArticle(newWord);
+            
+            rotatingElement.textContent = newWord;
+            
+            // Atualiza título da aba do navegador também
+            document.title = `Eletric Blue Jogos | Tire ${article} ${newWord} das telas`;
+        }
+
+        // Muda a palavra a cada 2 segundos
+        setInterval(changeWord, 2000);
+
+        // Inicia a rotação imediatamente
+        setTimeout(changeWord, 2000);
+    </script>
+</body>
+</html>
