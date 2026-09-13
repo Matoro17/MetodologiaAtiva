@@ -183,36 +183,29 @@
             background-clip: text;
         }
 
-        .rotating-word {
+        .rotating-phrase {
             display: inline-block;
-            min-width: 140px;
-            animation: rotate 8s infinite;
+            opacity: 1;
+            transition: opacity 0.6s ease-in-out;
         }
 
-        @keyframes rotate {
-            0% { opacity: 1; transform: translateY(0); }
-            16% { opacity: 1; transform: translateY(0); }
-            20% { opacity: 0; transform: translateY(-20px); }
-            21% { opacity: 0; transform: translateY(20px); }
-            25% { opacity: 1; transform: translateY(0); }
-            
-            25% { opacity: 1; transform: translateY(0); }
-            41% { opacity: 1; transform: translateY(0); }
-            45% { opacity: 0; transform: translateY(-20px); }
-            46% { opacity: 0; transform: translateY(20px); }
-            50% { opacity: 1; transform: translateY(0); }
-            
-            50% { opacity: 1; transform: translateY(0); }
-            66% { opacity: 1; transform: translateY(0); }
-            70% { opacity: 0; transform: translateY(-20px); }
-            71% { opacity: 0; transform: translateY(20px); }
-            75% { opacity: 1; transform: translateY(0); }
-            
-            75% { opacity: 1; transform: translateY(0); }
-            91% { opacity: 1; transform: translateY(0); }
-            95% { opacity: 0; transform: translateY(-20px); }
-            96% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .rotating-phrase.fade-out {
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .rotating-phrase.fade-in {
+            animation: fadeInUp 0.6s ease-in-out;
         }
 
         .hero-subtitle {
@@ -913,11 +906,7 @@
         }
 
         .footer-brand-icon {
-            width: 30px;
-            height: 30px;
-            object-fit: contain;
-            display: block;
-            flex-shrink: 0;
+            font-size: 1.5rem;
         }
 
         .footer-bottom {
@@ -976,7 +965,7 @@
         <div class="hero-container">
             <div class="hero-content">
                 <div>
-                    <h1>Tire suas <span class="rotating-word">aulas</span> das <span>telas</span></h1>
+                    <h1><span class="rotating-phrase"></span></h1>
                     <p class="hero-subtitle">
                         Transforme o aprendizado em experiências táteis, colaborativas e memoráveis. 
                         Metodologia ativa através de jogos analógicos que desenvolvem psicomotricidade, 
@@ -1240,50 +1229,50 @@
     </footer>
 
     <script>
-        // Palavras que rotacionam - com coerência gramatical em português
-        const words = [
-            'aulas',           // Tire suas aulas das telas
-            'mentes',          // Tire suas mentes das telas
-            'vidas',           // Tire suas vidas das telas
-            'crianças',        // Tire suas crianças das telas
-            'habilidades',     // Tire suas habilidades das telas
-            'potencial',       // Tire seu potencial das telas
-            'criatividade',    // Tire sua criatividade das telas
-            'alunos'           // Tire seus alunos das telas
+        // Frases completas com coerência gramatical perfeita em português
+        const phrases = [
+            'Tire suas aulas das telas',
+            'Tire suas mentes das telas',
+            'Tire suas vidas das telas',
+            'Tire suas crianças das telas',
+            'Tire suas habilidades das telas',
+            'Tire seu potencial das telas',
+            'Tire sua criatividade das telas',
+            'Tire seus alunos das telas'
         ];
 
-        const rotatingElement = document.querySelector('.rotating-word');
+        const rotatingElement = document.querySelector('.rotating-phrase');
         let currentIndex = 0;
 
-        // Função para determinar o artigo correto baseado na palavra
-        function getArticle(word) {
-            const femininePlural = ['aulas', 'mentes', 'vidas', 'crianças', 'habilidades', 'criatividade'];
-            const masculine = ['potencial'];
-            const masculinePlural = ['alunos'];
+        // Função para mudar a frase com transição suave
+        function changePhrase() {
+            // Fade out
+            rotatingElement.classList.add('fade-out');
+            rotatingElement.classList.remove('fade-in');
 
-            if (femininePlural.includes(word)) return 'suas';
-            if (masculine.includes(word)) return 'seu';
-            if (masculinePlural.includes(word)) return 'seus';
-            return 'suas';
+            // Após 600ms (duração do fade out), muda o texto
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % phrases.length;
+                const newPhrase = phrases[currentIndex];
+                
+                rotatingElement.textContent = newPhrase;
+                
+                // Fade in
+                rotatingElement.classList.remove('fade-out');
+                rotatingElement.classList.add('fade-in');
+                
+                // Atualiza título da aba do navegador também
+                document.title = `Eletric Blue Jogos | ${newPhrase}`;
+            }, 600);
         }
 
-        // Função para mudar a palavra
-        function changeWord() {
-            currentIndex = (currentIndex + 1) % words.length;
-            const newWord = words[currentIndex];
-            const article = getArticle(newWord);
-            
-            rotatingElement.textContent = newWord;
-            
-            // Atualiza título da aba do navegador também
-            document.title = `Eletric Blue Jogos | Tire ${article} ${newWord} das telas`;
-        }
+        // Exibe a primeira frase imediatamente
+        rotatingElement.textContent = phrases[0];
+        rotatingElement.classList.add('fade-in');
+        document.title = `Eletric Blue Jogos | ${phrases[0]}`;
 
-        // Muda a palavra a cada 2 segundos
-        setInterval(changeWord, 2000);
-
-        // Inicia a rotação imediatamente
-        setTimeout(changeWord, 2000);
+        // Muda a frase a cada 4 segundos (600ms fade out + 600ms fade in + 2.8s repouso)
+        setInterval(changePhrase, 4000);
     </script>
 </body>
 </html>
